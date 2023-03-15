@@ -7,6 +7,8 @@ mock在测试中经常用到，能够保障自动化case的稳定性、解决上
 
 该代码库为管理端，即页面增删改查所需接口的功能实现
 
+mock-core代码库：https://github.com/Ammar-hj/mock-core
+
 #快速开始
 1、拉取代码  
 
