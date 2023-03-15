@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.mocklearn.model.mapper.HttpInterfaceSnapshotMapper">
+  <resultMap id="BaseResultMap" type="com.platform.mocklearn.model.entity.HttpInterfaceSnapshot">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="http_interface_id" jdbcType="BIGINT" property="httpInterfaceId" />
+    <result column="http_interface_request_uri" jdbcType="VARCHAR" property="httpInterfaceRequestUri" />
+    <result column="http_interface_request_method" jdbcType="VARCHAR" property="httpInterfaceRequestMethod" />
+    <result column="http_interface_space_id" jdbcType="BIGINT" property="httpInterfaceSpaceId" />
+    <result column="op_type" jdbcType="VARCHAR" property="opType" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="mtime" jdbcType="TIMESTAMP" property="mtime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.platform.mocklearn.model.entity.HttpInterfaceSnapshot">
+    <result column="http_interface" jdbcType="LONGVARCHAR" property="httpInterface" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, http_interface_id, http_interface_request_uri, http_interface_request_method, 
+    http_interface_space_id, op_type, ctime, mtime
+  </sql>
+  <sql id="Blob_Column_List">
+    http_interface
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshotExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mock_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshotExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mock_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mock_http_interface_snapshot
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mock_http_interface_snapshot
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshotExample">
+    delete from mock_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshot">
+    insert into mock_http_interface_snapshot (id, http_interface_id, http_interface_request_uri, 
+      http_interface_request_method, http_interface_space_id, 
+      op_type, ctime, mtime, 
+      http_interface)
+    values (#{id,jdbcType=BIGINT}, #{httpInterfaceId,jdbcType=BIGINT}, #{httpInterfaceRequestUri,jdbcType=VARCHAR}, 
+      #{httpInterfaceRequestMethod,jdbcType=VARCHAR}, #{httpInterfaceSpaceId,jdbcType=BIGINT}, 
+      #{opType,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP}, #{mtime,jdbcType=TIMESTAMP}, 
+      #{httpInterface,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshot">
+    insert into mock_http_interface_snapshot
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="httpInterfaceId != null">
+        http_interface_id,
+      </if>
+      <if test="httpInterfaceRequestUri != null">
+        http_interface_request_uri,
+      </if>
+      <if test="httpInterfaceRequestMethod != null">
+        http_interface_request_method,
+      </if>
+      <if test="httpInterfaceSpaceId != null">
+        http_interface_space_id,
+      </if>
+      <if test="opType != null">
+        op_type,
+      </if>
+      <if test="ctime != null">
+        ctime,
+      </if>
+      <if test="mtime != null">
+        mtime,
+      </if>
+      <if test="httpInterface != null">
+        http_interface,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="httpInterfaceId != null">
+        #{httpInterfaceId,jdbcType=BIGINT},
+      </if>
+      <if test="httpInterfaceRequestUri != null">
+        #{httpInterfaceRequestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceRequestMethod != null">
+        #{httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceSpaceId != null">
+        #{httpInterfaceSpaceId,jdbcType=BIGINT},
+      </if>
+      <if test="opType != null">
+        #{opType,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mtime != null">
+        #{mtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpInterface != null">
+        #{httpInterface,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshotExample" resultType="java.lang.Long">
+    select count(*) from mock_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mock_http_interface_snapshot
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.httpInterfaceId != null">
+        http_interface_id = #{record.httpInterfaceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.httpInterfaceRequestUri != null">
+        http_interface_request_uri = #{record.httpInterfaceRequestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpInterfaceRequestMethod != null">
+        http_interface_request_method = #{record.httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpInterfaceSpaceId != null">
+        http_interface_space_id = #{record.httpInterfaceSpaceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.opType != null">
+        op_type = #{record.opType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctime != null">
+        ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mtime != null">
+        mtime = #{record.mtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.httpInterface != null">
+        http_interface = #{record.httpInterface,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update mock_http_interface_snapshot
+    set id = #{record.id,jdbcType=BIGINT},
+      http_interface_id = #{record.httpInterfaceId,jdbcType=BIGINT},
+      http_interface_request_uri = #{record.httpInterfaceRequestUri,jdbcType=VARCHAR},
+      http_interface_request_method = #{record.httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      http_interface_space_id = #{record.httpInterfaceSpaceId,jdbcType=BIGINT},
+      op_type = #{record.opType,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      mtime = #{record.mtime,jdbcType=TIMESTAMP},
+      http_interface = #{record.httpInterface,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mock_http_interface_snapshot
+    set id = #{record.id,jdbcType=BIGINT},
+      http_interface_id = #{record.httpInterfaceId,jdbcType=BIGINT},
+      http_interface_request_uri = #{record.httpInterfaceRequestUri,jdbcType=VARCHAR},
+      http_interface_request_method = #{record.httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      http_interface_space_id = #{record.httpInterfaceSpaceId,jdbcType=BIGINT},
+      op_type = #{record.opType,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      mtime = #{record.mtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshot">
+    update mock_http_interface_snapshot
+    <set>
+      <if test="httpInterfaceId != null">
+        http_interface_id = #{httpInterfaceId,jdbcType=BIGINT},
+      </if>
+      <if test="httpInterfaceRequestUri != null">
+        http_interface_request_uri = #{httpInterfaceRequestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceRequestMethod != null">
+        http_interface_request_method = #{httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceSpaceId != null">
+        http_interface_space_id = #{httpInterfaceSpaceId,jdbcType=BIGINT},
+      </if>
+      <if test="opType != null">
+        op_type = #{opType,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mtime != null">
+        mtime = #{mtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpInterface != null">
+        http_interface = #{httpInterface,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshot">
+    update mock_http_interface_snapshot
+    set http_interface_id = #{httpInterfaceId,jdbcType=BIGINT},
+      http_interface_request_uri = #{httpInterfaceRequestUri,jdbcType=VARCHAR},
+      http_interface_request_method = #{httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      http_interface_space_id = #{httpInterfaceSpaceId,jdbcType=BIGINT},
+      op_type = #{opType,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      mtime = #{mtime,jdbcType=TIMESTAMP},
+      http_interface = #{httpInterface,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.platform.mocklearn.model.entity.HttpInterfaceSnapshot">
+    update mock_http_interface_snapshot
+    set http_interface_id = #{httpInterfaceId,jdbcType=BIGINT},
+      http_interface_request_uri = #{httpInterfaceRequestUri,jdbcType=VARCHAR},
+      http_interface_request_method = #{httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      http_interface_space_id = #{httpInterfaceSpaceId,jdbcType=BIGINT},
+      op_type = #{opType,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      mtime = #{mtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
